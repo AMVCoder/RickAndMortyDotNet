@@ -6,40 +6,35 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace RickAndMortyDotNet.Character
+namespace Interdimensional
 {
-    public class Character 
+    internal static class Character 
     {
-        private readonly HttpClient httpClient;
-
-        public Character()
+        private static readonly HttpClient httpClient = new HttpClient { BaseAddress = new Uri("https://rickandmortyapi.com/api/") };
+  
+      
+        public static async Task<Protagonist> GetCharacterAsync(int id)
         {
-            httpClient = new HttpClient { BaseAddress = new Uri("https://rickandmortyapi.com/api/") };
-        }
-
-
-        public async Task<CharacterModel> GetCharacterAsync(int id)
-        {
-           var response = await httpClient.GetStringAsync($"{id}");
-           CharacterModel character = JsonConvert.DeserializeObject<CharacterModel>(response);
+           var response = await httpClient.GetStringAsync($"character/{id}");
+           Protagonist character = JsonConvert.DeserializeObject<Protagonist>(response);
            return character;
         }
 
-        public async Task<InfoObject<CharacterModel>> GetAllCharacterAsync()
+        public static async Task<InfoObject<Protagonist>> GetAllCharacterAsync()
         {
             var response = await httpClient.GetStringAsync($"character");
-            return JsonConvert.DeserializeObject<InfoObject<CharacterModel>>(response);
+            return JsonConvert.DeserializeObject<InfoObject<Protagonist>>(response);
         }
 
-        public async Task<List<CharacterModel>> GetMultipleCharactersAsync(params int[] ids)
+        public static async Task<List<Protagonist>> GetMultipleCharactersAsync(params int[] ids)
         {
             string idString = string.Join(",", ids);
             var response = await httpClient.GetStringAsync($"character/{idString}");
-            List<CharacterModel> characters = JsonConvert.DeserializeObject<List<CharacterModel>>(response);
+            List<Protagonist> characters = JsonConvert.DeserializeObject<List<Protagonist>>(response);
             return characters;
         }
 
-        public async Task<List<CharacterModel>> FilterCharactersAsync(CharacterFilter filter)
+        public static async Task<List<Protagonist>> FilterCharactersAsync(CharacterFilter filter)
         {
             var query = HttpUtility.ParseQueryString(string.Empty);
 
@@ -57,15 +52,15 @@ namespace RickAndMortyDotNet.Character
             string queryString = query.ToString();
 
             var response = await httpClient.GetStringAsync($"character/?{queryString}");
-            var rootObject = JsonConvert.DeserializeObject<InfoObject<CharacterModel>>(response);
+            var rootObject = JsonConvert.DeserializeObject<InfoObject<Protagonist>>(response);
 
             return rootObject.Results;
         }
 
-        public async Task<CharacterModel> GetRandomCharacterAsync()
+        public static async Task<Protagonist> GetRandomCharacterAsync()
         {
             // Obtén el número total de personajes
-            InfoObject<CharacterModel> allInfo = await GetAllCharacterAsync();
+            InfoObject<Protagonist> allInfo = await GetAllCharacterAsync();
             int totalCharacters = allInfo.Info.Count;
 
             //  Genera un número aleatorio

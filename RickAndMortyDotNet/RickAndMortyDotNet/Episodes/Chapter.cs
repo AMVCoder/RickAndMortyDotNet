@@ -1,15 +1,17 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RickAndMortyDotNet.Episodes
+namespace Interdimensional
 {
-    public sealed class EpisodesModel
+    public sealed class Chapter
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        [JsonProperty("air_date")]
         public string AirDate { get; set; }
         public string EpisodeCode { get; set; }
         public List<string> Characters { get; set; }

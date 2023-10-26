@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RickAndMortyDotNet.Character
+namespace Interdimensional
 {
-    public sealed class CharacterFilter
+    internal sealed class CharacterFilter
     {
         public string Name { get; set; }
         public string Status { get; set; }

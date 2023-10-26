@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RickAndMortyDotNet.Locations
+namespace Interdimensional
 {
-    public sealed class LocationsModel
+    public sealed class Area
     {
         public int Id { get; set; }
         public string Name { get; set; }

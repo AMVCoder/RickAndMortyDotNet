@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RickAndMortyDotNet
+namespace Interdimensional
 {
     public sealed class InfoObject<T>  where T : class
     {

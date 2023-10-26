@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using RickAndMortyDotNet.Episodes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,40 +6,35 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace RickAndMortyDotNet.Locations
+namespace Interdimensional
 {
-    public class Location
+    public static class Location
     {
 
-        private readonly HttpClient httpClient;
+        private static readonly HttpClient httpClient = new HttpClient { BaseAddress = new Uri("https://rickandmortyapi.com/api/") };
 
-        public Location()
-        {
-            httpClient = new HttpClient { BaseAddress = new Uri("https://rickandmortyapi.com/api/") };
-        }
-
-        public async Task<LocationsModel> GetLocationAsync(int id)
+        public static async Task<Area> GetLocationAsync(int id)
         {
             var response = await httpClient.GetStringAsync($"Location/{id}");
-            LocationsModel location = JsonConvert.DeserializeObject<LocationsModel>(response);
+            Area location = JsonConvert.DeserializeObject<Area>(response);
             return location;
         }
 
-        public async Task<InfoObject<LocationsModel>> GetAllEpisodesAsync()
+        public static async Task<InfoObject<Area>> GetAllEpisodesAsync()
         {
             var response = await httpClient.GetStringAsync($"location");
-            return JsonConvert.DeserializeObject<InfoObject<LocationsModel>>(response);
+            return JsonConvert.DeserializeObject<InfoObject<Area>>(response);
         }
 
-        public async Task<List<LocationsModel>> GetMultipleEpisodesAsync(params int[] ids)
+        public static async Task<List<Area>> GetMultipleEpisodesAsync(params int[] ids)
         {
             string idString = string.Join(",", ids);
             var response = await httpClient.GetStringAsync($"location/{idString}");
-            List<LocationsModel> location = JsonConvert.DeserializeObject<List<LocationsModel>>(response);
+            List<Area> location = JsonConvert.DeserializeObject<List<Area>>(response);
             return location;
         }
 
-        public async Task<List<LocationsModel>> FilterEpisodeAsync(LocationsFilter filter)
+        public static async Task<List<Area>> FilterEpisodeAsync(LocationsFilter filter)
         {
             var query = HttpUtility.ParseQueryString(string.Empty);
 
@@ -54,7 +48,7 @@ namespace RickAndMortyDotNet.Locations
             string queryString = query.ToString();
 
             var response = await httpClient.GetStringAsync($"location/?{queryString}");
-            var rootObject = JsonConvert.DeserializeObject<InfoObject<LocationsModel>>(response);
+            var rootObject = JsonConvert.DeserializeObject<InfoObject<Area>>(response);
 
             return rootObject.Results;
         }

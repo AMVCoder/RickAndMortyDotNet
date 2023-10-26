@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RickAndMortyDotNet.Locations
+namespace Interdimensional
 {
     public sealed class LocationsFilter
     {

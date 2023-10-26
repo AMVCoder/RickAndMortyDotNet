@@ -4,14 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RickAndMortyDotNet.Character
+namespace RickAndMortyDotNet.Locations
 {
-    public sealed class CharacterFilter
+    public sealed class LocationsFilter
     {
         public string Name { get; set; }
-        public string Status { get; set; }
-        public string Species { get; set; }
         public string Type { get; set; }
-        public string Gender { get; set; }
+        public string Dimension { get; set; }
     }
 }

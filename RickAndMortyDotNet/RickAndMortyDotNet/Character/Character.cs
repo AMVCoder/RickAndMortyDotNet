@@ -34,7 +34,7 @@ namespace RickAndMortyDotNet.Character
         public async Task<List<CharacterModel>> GetMultipleCharactersAsync(params int[] ids)
         {
             string idString = string.Join(",", ids);
-            var response = await httpClient.GetStringAsync($"{idString}");
+            var response = await httpClient.GetStringAsync($"character/{idString}");
             List<CharacterModel> characters = JsonConvert.DeserializeObject<List<CharacterModel>>(response);
             return characters;
         }
@@ -60,6 +60,22 @@ namespace RickAndMortyDotNet.Character
             var rootObject = JsonConvert.DeserializeObject<InfoObject<CharacterModel>>(response);
 
             return rootObject.Results;
+        }
+
+        public async Task<CharacterModel> GetRandomCharacterAsync()
+        {
+            // Obtén el número total de personajes
+            InfoObject<CharacterModel> allInfo = await GetAllCharacterAsync();
+            int totalCharacters = allInfo.Info.Count;
+
+            //  Genera un número aleatorio
+            Random rand = new Random();
+            int randomId = rand.Next(1, totalCharacters + 1); // Los IDs comienzan desde 1
+
+            // Usa el ID aleatorio para obtener un personaje
+            var randomCharacter = await GetCharacterAsync(randomId);
+
+            return randomCharacter;
         }
 
     }

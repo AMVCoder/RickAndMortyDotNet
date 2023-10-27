@@ -8,7 +8,7 @@ using System.Web;
 
 namespace Interdimensional
 {
-    internal static class Episodes
+    internal static class ChapterService
     {
         private static readonly HttpClient httpClient = new HttpClient { BaseAddress = new Uri("https://rickandmortyapi.com/api/") };
 
@@ -19,9 +19,9 @@ namespace Interdimensional
             return episode;
         }
 
-        public static async Task<InfoObject<Chapter>> GetAllEpisodesAsync()
+        public static async Task<InfoObject<Chapter>> GetAllEpisodesAsync(int page)
         {
-            var response = await httpClient.GetStringAsync($"episode");
+            var response = await httpClient.GetStringAsync($"episode/?page={page}");
             return JsonConvert.DeserializeObject<InfoObject<Chapter>>(response);
         }
 
@@ -33,7 +33,7 @@ namespace Interdimensional
             return episodes;
         }
 
-        public static async Task<List<Chapter>> FilterEpisodeAsync(EpisodesFilter filter)
+        public static async Task<List<Chapter>> FilterEpisodeAsync(ChapterFilter filter)
         {
             var query = HttpUtility.ParseQueryString(string.Empty);
 

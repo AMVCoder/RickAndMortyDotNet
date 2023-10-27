@@ -8,33 +8,33 @@ using System.Web;
 
 namespace Interdimensional
 {
-    internal static class Character 
+    internal static class CharacterService 
     {
         private static readonly HttpClient httpClient = new HttpClient { BaseAddress = new Uri("https://rickandmortyapi.com/api/") };
   
       
-        public static async Task<Protagonist> GetCharacterAsync(int id)
+        public static async Task<Actor> GetCharacterAsync(int id)
         {
            var response = await httpClient.GetStringAsync($"character/{id}");
-           Protagonist character = JsonConvert.DeserializeObject<Protagonist>(response);
+           Actor character = JsonConvert.DeserializeObject<Actor>(response);
            return character;
         }
 
-        public static async Task<InfoObject<Protagonist>> GetAllCharacterAsync()
+        public static async Task<InfoObject<Actor>> GetAllCharacterAsync(int page)
         {
-            var response = await httpClient.GetStringAsync($"character");
-            return JsonConvert.DeserializeObject<InfoObject<Protagonist>>(response);
+            var response = await httpClient.GetStringAsync($"character/?page={page}");
+            return JsonConvert.DeserializeObject<InfoObject<Actor>>(response);
         }
 
-        public static async Task<List<Protagonist>> GetMultipleCharactersAsync(params int[] ids)
+        public static async Task<List<Actor>> GetMultipleCharactersAsync(params int[] ids)
         {
             string idString = string.Join(",", ids);
             var response = await httpClient.GetStringAsync($"character/{idString}");
-            List<Protagonist> characters = JsonConvert.DeserializeObject<List<Protagonist>>(response);
+            List<Actor> characters = JsonConvert.DeserializeObject<List<Actor>>(response);
             return characters;
         }
 
-        public static async Task<List<Protagonist>> FilterCharactersAsync(CharacterFilter filter)
+        public static async Task<List<Actor>> FilterCharactersAsync(ActorFilter filter)
         {
             var query = HttpUtility.ParseQueryString(string.Empty);
 
@@ -52,15 +52,16 @@ namespace Interdimensional
             string queryString = query.ToString();
 
             var response = await httpClient.GetStringAsync($"character/?{queryString}");
-            var rootObject = JsonConvert.DeserializeObject<InfoObject<Protagonist>>(response);
+            var rootObject = JsonConvert.DeserializeObject<InfoObject<Actor>>(response);
 
             return rootObject.Results;
         }
 
-        public static async Task<Protagonist> GetRandomCharacterAsync()
+        public static async Task<Actor> GetRandomCharacterAsync()
         {
+            int randompage = new Random().Next(0, 42);
             // Obtén el número total de personajes
-            InfoObject<Protagonist> allInfo = await GetAllCharacterAsync();
+            InfoObject<Actor> allInfo = await GetAllCharacterAsync(randompage);
             int totalCharacters = allInfo.Info.Count;
 
             //  Genera un número aleatorio

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Interdimensional
 { 
-    internal sealed class EpisodesFilter
+    public sealed class ChapterFilter
     {
         public string Name { get; set; }
         public string Episode { get; set; }

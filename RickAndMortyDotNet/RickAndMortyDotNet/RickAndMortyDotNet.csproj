@@ -6,6 +6,11 @@
     <Nullable>enable</Nullable>
 	<PackageId>RickAndMortyDoNet</PackageId>
 	<Version>1.0.0</Version>
+	<Authors>Alberto Vilchez</Authors>
+	<PackageLicenseUrl>https://github.com/AlbertoVilchez/RickAndMortyDotNet/tree/main/RickAndMortyDotNet/LICENSE</PackageLicenseUrl>
+    <Copyright>Alberto Vilchez</Copyright>
+    <PackageProjectUrl>https://github.com/AlbertoVilchez/RickAndMortyDotNet</PackageProjectUrl>
+	<Description>Api.NET client of Rick And Morty : https://rickandmortyapi.com/</Description>
   </PropertyGroup>
 
   <ItemGroup>

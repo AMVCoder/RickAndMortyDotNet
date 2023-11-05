@@ -20,7 +20,7 @@ Retrieve a specific actor by their ID:
 ```csharp
 Actor actor = CronenbergQuery.GetActor(34);
 ```
-#Get a Random Actor
+Get a Random Actor
 For a bit of unpredictability, fetch a random actor:
 
 ```csharp
@@ -48,6 +48,7 @@ InfoObject Class
 The InfoObject<T> class is a generic class used for paginated results, providing the following properties:
 
 Info: A property of type Info which includes metadata such as the current page number, total pages, and total number of items.
+
 Results: A List<T> holding the results returned for the current page, where T can be an Actor or a Chapter depending on the query.
 
 ```csharp

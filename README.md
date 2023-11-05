@@ -43,7 +43,6 @@ Fetch all chapters in a paginated format:
 ```csharp
 InfoObject<Chapter> chap = CronenbergQuery.GetAllChapter(3);
 ```
-#Supporting Classes
 InfoObject Class
 The InfoObject<T> class is a generic class used for paginated results, providing the following properties:
 
